@@ -1,7 +1,7 @@
 <?php
 /* ---------------------------------------------
  * SPK SAW
- * Author: Zunan Arif Rahmanto - 15111131
+ * Author:  - 15111131
  * ------------------------------------------- */
 
 /* ---------------------------------------------
@@ -30,12 +30,12 @@ $query->setFetchMode(PDO::FETCH_ASSOC);
 $kriterias = $query->fetchAll();
 
 /* ---------------------------------------------
- * Fetch semua kambing (alternatif)
+ * Fetch semua karyawan (alternatif)
  * ------------------------------------------- */
-$query2 = $pdo->prepare('SELECT id_kambing, no_kalung FROM kambing');
+$query2 = $pdo->prepare('SELECT id_karyawan, no_kalung FROM karyawan');
 $query2->execute();			
 $query2->setFetchMode(PDO::FETCH_ASSOC);
-$kambings = $query2->fetchAll();
+$karyawans = $query2->fetchAll();
 
 
 /* >>> STEP 1 ===================================
@@ -45,24 +45,24 @@ $matriks_x = array();
 $list_kriteria = array();
 foreach($kriterias as $kriteria):
 	$list_kriteria[$kriteria['id_kriteria']] = $kriteria;
-	foreach($kambings as $kambing):
+	foreach($karyawans as $karyawan):
 		
-		$id_kambing = $kambing['id_kambing'];
+		$id_karyawan = $karyawan['id_karyawan'];
 		$id_kriteria = $kriteria['id_kriteria'];
 		
 		// Fetch nilai dari db
-		$query3 = $pdo->prepare('SELECT nilai FROM nilai_kambing
-			WHERE id_kambing = :id_kambing AND id_kriteria = :id_kriteria');
+		$query3 = $pdo->prepare('SELECT nilai FROM nilai_karyawan
+			WHERE id_karyawan = :id_karyawan AND id_kriteria = :id_kriteria');
 		$query3->execute(array(
-			'id_kambing' => $id_kambing,
+			'id_karyawan' => $id_karyawan,
 			'id_kriteria' => $id_kriteria,
 		));			
 		$query3->setFetchMode(PDO::FETCH_ASSOC);
-		if($nilai_kambing = $query3->fetch()) {
+		if($nilai_karyawan = $query3->fetch()) {
 			// Jika ada nilai kriterianya
-			$matriks_x[$id_kriteria][$id_kambing] = $nilai_kambing['nilai'];
+			$matriks_x[$id_kriteria][$id_karyawan] = $nilai_karyawan['nilai'];
 		} else {			
-			$matriks_x[$id_kriteria][$id_kambing] = 0;
+			$matriks_x[$id_kriteria][$id_karyawan] = 0;
 		}
 
 	endforeach;
@@ -72,14 +72,14 @@ endforeach;
  * Matriks Ternormalisasi (R)
  * ------------------------------------------- */
 $matriks_r = array();
-foreach($matriks_x as $id_kriteria => $nilai_kambings):
+foreach($matriks_x as $id_kriteria => $nilai_karyawans):
 	
 	$tipe = $list_kriteria[$id_kriteria]['type'];
-	foreach($nilai_kambings as $id_alternatif => $nilai) {
+	foreach($nilai_karyawans as $id_alternatif => $nilai) {
 		if($tipe == 'benefit') {
-			$nilai_normal = $nilai / max($nilai_kambings);
+			$nilai_normal = $nilai / max($nilai_karyawans);
 		} elseif($tipe == 'cost') {
-			$nilai_normal = min($nilai_kambings) / $nilai;
+			$nilai_normal = min($nilai_karyawans) / $nilai;
 		}
 		
 		$matriks_r[$id_kriteria][$id_alternatif] = $nilai_normal;
@@ -92,23 +92,23 @@ endforeach;
  * Perangkingan
  * ------------------------------------------- */
 $ranks = array();
-foreach($kambings as $kambing):
+foreach($karyawans as $karyawan):
 
 	$total_nilai = 0;
 	foreach($list_kriteria as $kriteria) {
 	
 		$bobot = $kriteria['bobot'];
-		$id_kambing = $kambing['id_kambing'];
+		$id_karyawan = $karyawan['id_karyawan'];
 		$id_kriteria = $kriteria['id_kriteria'];
 		
-		$nilai_r = $matriks_r[$id_kriteria][$id_kambing];
+		$nilai_r = $matriks_r[$id_kriteria][$id_karyawan];
 		$total_nilai = $total_nilai + ($bobot * $nilai_r);
 
 	}
 	
-	$ranks[$kambing['id_kambing']]['id_kambing'] = $kambing['id_kambing'];
-	$ranks[$kambing['id_kambing']]['no_kalung'] = $kambing['no_kalung'];
-	$ranks[$kambing['id_kambing']]['nilai'] = $total_nilai;
+	$ranks[$karyawan['id_karyawan']]['id_karyawan'] = $karyawan['id_karyawan'];
+	$ranks[$karyawan['id_karyawan']]['no_kalung'] = $karyawan['no_kalung'];
+	$ranks[$karyawan['id_karyawan']]['nilai'] = $total_nilai;
 	
 endforeach;
  
@@ -126,7 +126,7 @@ endforeach;
 		<table class="pure-table pure-table-striped">
 			<thead>
 				<tr class="super-top">
-					<th rowspan="2" class="super-top-left">No. Kambing</th>
+					<th rowspan="2" class="super-top-left">No. karyawan</th>
 					<th colspan="<?php echo count($kriterias); ?>">Kriteria</th>
 				</tr>
 				<tr>
@@ -136,15 +136,15 @@ endforeach;
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach($kambings as $kambing): ?>
+				<?php foreach($karyawans as $karyawan): ?>
 					<tr>
-						<td><?php echo $kambing['no_kalung']; ?></td>
+						<td><?php echo $karyawan['no_kalung']; ?></td>
 						<?php						
 						foreach($kriterias as $kriteria):
-							$id_kambing = $kambing['id_kambing'];
+							$id_karyawan = $karyawan['id_karyawan'];
 							$id_kriteria = $kriteria['id_kriteria'];
 							echo '<td>';
-							echo $matriks_x[$id_kriteria][$id_kambing];
+							echo $matriks_x[$id_kriteria][$id_karyawan];
 							echo '</td>';
 						endforeach;
 						?>
@@ -187,7 +187,7 @@ endforeach;
 		<table class="pure-table pure-table-striped">
 			<thead>
 				<tr class="super-top">
-					<th rowspan="2" class="super-top-left">No. Kambing</th>
+					<th rowspan="2" class="super-top-left">No. karyawan</th>
 					<th colspan="<?php echo count($kriterias); ?>">Kriteria</th>
 				</tr>
 				<tr>
@@ -197,15 +197,15 @@ endforeach;
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach($kambings as $kambing): ?>
+				<?php foreach($karyawans as $karyawan): ?>
 					<tr>
-						<td><?php echo $kambing['no_kalung']; ?></td>
+						<td><?php echo $karyawan['no_kalung']; ?></td>
 						<?php						
 						foreach($kriterias as $kriteria):
-							$id_kambing = $kambing['id_kambing'];
+							$id_karyawan = $karyawan['id_karyawan'];
 							$id_kriteria = $kriteria['id_kriteria'];
 							echo '<td>';
-							echo round($matriks_r[$id_kriteria][$id_kambing], $digit);
+							echo round($matriks_r[$id_kriteria][$id_karyawan], $digit);
 							echo '</td>';
 						endforeach;
 						?>
@@ -233,15 +233,15 @@ endforeach;
 		<table class="pure-table pure-table-striped">
 			<thead>					
 				<tr>
-					<th class="super-top-left">No. Kambing</th>
+					<th class="super-top-left">No. karyawan</th>
 					<th>Ranking</th>
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach($sorted_ranks as $kambing ): ?>
+				<?php foreach($sorted_ranks as $karyawan ): ?>
 					<tr>
-						<td><?php echo $kambing['no_kalung']; ?></td>
-						<td><?php echo round($kambing['nilai'], $digit); ?></td>											
+						<td><?php echo $karyawan['no_kalung']; ?></td>
+						<td><?php echo round($karyawan['nilai'], $digit); ?></td>											
 					</tr>
 				<?php endforeach; ?>
 			</tbody>

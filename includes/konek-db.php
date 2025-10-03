@@ -2,7 +2,7 @@
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
-define('DB_NAME', 'spk_saw_test');
+define('DB_NAME', 'spk_saw_test2');
 
 try {
 	// set dbase untuk mysql

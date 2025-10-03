@@ -1,72 +1,66 @@
 <!DOCTYPE html>
+
 <head>
-	<meta http-equiv="x-ua-compatible" content="ie=edge" />
-	<meta charset="UTF-8" />
-	<title><?php
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta charset="UTF-8" />
+    <title><?php
 		if(isset($judul_page)) {
 			echo $judul_page;
 		}
 	?></title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
-	<link rel="stylesheet" href="stylesheets/style.css">
-	<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>	
-	<script type="text/javascript" src="js/superfish.min.js"></script>	
-	<script type="text/javascript" src="js/main.js"></script>	
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
+    <!-- <link rel="stylesheet" href="stylesheets/style.css"> -->
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="js/superfish.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
 </head>
+
 <body>
-	<div id="page">
-	
-	<header id="header">
-		<div class="container clearfix">
-			<div id="logo-wrap">
-				<h1 id="logo"><a href="index.php"><img src="images/logo.png" alt=""></a></h1>
-			</div>
-			
-			<div id="header-content" class="clearfix">
-				<nav id="nav">
-					<ul class="sf-menu">
-						<?php $user_role = get_role(); ?>
-						<?php if($user_role == 'admin'): ?>
-							<li><a href="list-user.php">User</a>
-								<ul>
-									<li><a href="list-user.php">List User</a></li>
-									<li><a href="tambah-user.php">Tambah User</a></li>
-								</ul>
-							</li>						
-							<li><a href="list-kriteria.php">Kriteria</a>
-								<ul>
-									<li><a href="list-kriteria.php">List Kriteria</a></li>
-									<li><a href="tambah-kriteria.php">Tambah Kriteria</a></li>
-								</ul>
-							</li>
-						<?php endif; ?>
-						<?php if($user_role == 'admin' || $user_role == 'petugas'): ?>
-							<li><a href="list-kambing.php">Kambing</a>
-								<ul>
-									<li><a href="list-kambing.php">List Kambing</a></li>
-									<li><a href="tambah-kambing.php">Tambah Kambing</a></li>
-								</ul>
-							</li>
-						<?php endif; ?>
-						<li><a href="ranking-topsis.php">Ranking</a>
-							<ul>
-								<li><a href="ranking-topsis.php">Topsis</a></li>
-								<li><a href="ranking-saw.php">SAW</a></li>
-							</ul>
-						</li>
-					</ul>
-				</nav>
-				
-				<div id="header-right">
-					<?php if(isset($_SESSION['user_id'])): ?>
-						<a href="logout.php" class="button">Log Out</a>
-					<?php else: ?>
-						<a href="login.php" class="button">Log In</a>
-					<?php endif; ?>
-				</div>
-			</div>
-		</div>
-	</header>
-	
-	<div id="main">
+    <div id="page">
+        <header class="d-flex flex-wrap justify-content-center p-3 m-1 border-bottom">
+            <?php $user_role = get_role(); ?>
+            <?php if($user_role == 'admin'): ?>
+            <a href="index.php"
+                class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                <svg class="bi me-2" width="40" height="32">
+                    <use xlink:href="#bootstrap" />
+                </svg>
+                <span class="fs-4"><b>SPK PERBANDINGAN SAW & TOPSIS</b></span>
+            </a>
+
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a class="nav-link active active m-1" aria-current="page" href="list-user.php">List
+                        User</a></li>
+
+                <li class="nav-item"><a class="nav-link active m-1" href="list-kriteria.php">List
+                        Kriteria</a></li>
+
+                <li class="nav-item"><a class="nav-link active m-1" href="list-karyawan.php">List
+                        Karyawan</a></li>
+                <?php endif; ?>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle  active m-1" href="#" id="dropdown01" data-bs-toggle="dropdown"
+                        aria-expanded="false">Rangking</a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown01">
+                        <li><a class="dropdown-item" href="ranking-topsis.php">TOPSIS</a></li>
+                        <li><a class="dropdown-item" href="ranking-saw.php">SAW</a></li>
+                    </ul>
+                </li>
+                <?php if(isset($_SESSION['user_id'])): ?>
+                <li class="nav-item"><a class="nav-link active m-1 " aria-current="page" href="logout.php">
+                        Log Out</a></li>
+                <?php else: ?>
+                <li class="nav-item"><a class="nav-link active m-1 " aria-current="page" href="login.php">
+                        Log In</a></li>
+                <?php endif; ?>
+            </ul>
+        </header>
+
+
+        <div id="main">

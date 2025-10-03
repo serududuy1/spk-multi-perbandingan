@@ -25,21 +25,21 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kambing`
+-- Table structure for table `karyawan`
 --
 
-CREATE TABLE `kambing` (
-  `id_kambing` int(10) NOT NULL,
+CREATE TABLE `karyawan` (
+  `id_karyawan` int(10) NOT NULL,
   `no_kalung` varchar(6) NOT NULL,
   `ciri_khas` text NOT NULL,
   `tanggal_input` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `kambing`
+-- Dumping data for table `karyawan`
 --
 
-INSERT INTO `kambing` (`id_kambing`, `no_kalung`, `ciri_khas`, `tanggal_input`) VALUES
+INSERT INTO `karyawan` (`id_karyawan`, `no_kalung`, `ciri_khas`, `tanggal_input`) VALUES
 (6, 'A1', 'Sehat wal afiat', '2017-05-23'),
 (7, 'A2', 'Siip', '2017-05-24'),
 (8, 'A3', 'Jos', '2017-05-24');
@@ -73,21 +73,21 @@ INSERT INTO `kriteria` (`id_kriteria`, `nama`, `type`, `bobot`, `ada_pilihan`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nilai_kambing`
+-- Table structure for table `nilai_karyawan`
 --
 
-CREATE TABLE `nilai_kambing` (
-  `id_nilai_kambing` int(11) NOT NULL,
-  `id_kambing` int(10) NOT NULL,
+CREATE TABLE `nilai_karyawan` (
+  `id_nilai_karyawan` int(11) NOT NULL,
+  `id_karyawan` int(10) NOT NULL,
   `id_kriteria` int(10) NOT NULL,
   `nilai` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `nilai_kambing`
+-- Dumping data for table `nilai_karyawan`
 --
 
-INSERT INTO `nilai_kambing` (`id_nilai_kambing`, `id_kambing`, `id_kriteria`, `nilai`) VALUES
+INSERT INTO `nilai_karyawan` (`id_nilai_karyawan`, `id_karyawan`, `id_kriteria`, `nilai`) VALUES
 (25, 8, 11, 1),
 (26, 8, 12, 0.5),
 (27, 8, 13, 0.5),
@@ -139,7 +139,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `username`, `password`, `nama`, `email`, `alamat`, `role`) VALUES
-(1, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'Zunan Arif R.', 'oxzygenz@gmail.com', 'Jalan Naik Turun 3312', '1'),
+(1, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'serududuyR.', 'oxzygenz@gmail.com', 'Jalan Naik Turun 3312', '1'),
 (7, 'petugas', '670489f94b6997a870b148f74744ee5676304925', 'Anton S', 'test@thesamplemail.com', 'test', '2');
 
 --
@@ -147,10 +147,10 @@ INSERT INTO `user` (`id_user`, `username`, `password`, `nama`, `email`, `alamat`
 --
 
 --
--- Indexes for table `kambing`
+-- Indexes for table `karyawan`
 --
-ALTER TABLE `kambing`
-  ADD PRIMARY KEY (`id_kambing`);
+ALTER TABLE `karyawan`
+  ADD PRIMARY KEY (`id_karyawan`);
 
 --
 -- Indexes for table `kriteria`
@@ -159,12 +159,12 @@ ALTER TABLE `kriteria`
   ADD PRIMARY KEY (`id_kriteria`);
 
 --
--- Indexes for table `nilai_kambing`
+-- Indexes for table `nilai_karyawan`
 --
-ALTER TABLE `nilai_kambing`
-  ADD PRIMARY KEY (`id_nilai_kambing`),
-  ADD UNIQUE KEY `id_kambing_2` (`id_kambing`,`id_kriteria`),
-  ADD KEY `id_kambing` (`id_kambing`),
+ALTER TABLE `nilai_karyawan`
+  ADD PRIMARY KEY (`id_nilai_karyawan`),
+  ADD UNIQUE KEY `id_karyawan_2` (`id_karyawan`,`id_kriteria`),
+  ADD KEY `id_karyawan` (`id_karyawan`),
   ADD KEY `id_kriteria` (`id_kriteria`);
 
 --
@@ -185,10 +185,10 @@ ALTER TABLE `user`
 --
 
 --
--- AUTO_INCREMENT for table `kambing`
+-- AUTO_INCREMENT for table `karyawan`
 --
-ALTER TABLE `kambing`
-  MODIFY `id_kambing` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+ALTER TABLE `karyawan`
+  MODIFY `id_karyawan` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `kriteria`
@@ -197,10 +197,10 @@ ALTER TABLE `kriteria`
   MODIFY `id_kriteria` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `nilai_kambing`
+-- AUTO_INCREMENT for table `nilai_karyawan`
 --
-ALTER TABLE `nilai_kambing`
-  MODIFY `id_nilai_kambing` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+ALTER TABLE `nilai_karyawan`
+  MODIFY `id_nilai_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `pilihan_kriteria`
@@ -219,11 +219,11 @@ ALTER TABLE `user`
 --
 
 --
--- Constraints for table `nilai_kambing`
+-- Constraints for table `nilai_karyawan`
 --
-ALTER TABLE `nilai_kambing`
-  ADD CONSTRAINT `nilai_kambing_ibfk_1` FOREIGN KEY (`id_kambing`) REFERENCES `kambing` (`id_kambing`),
-  ADD CONSTRAINT `nilai_kambing_ibfk_2` FOREIGN KEY (`id_kriteria`) REFERENCES `kriteria` (`id_kriteria`);
+ALTER TABLE `nilai_karyawan`
+  ADD CONSTRAINT `nilai_karyawan_ibfk_1` FOREIGN KEY (`id_karyawan`) REFERENCES `karyawan` (`id_karyawan`),
+  ADD CONSTRAINT `nilai_karyawan_ibfk_2` FOREIGN KEY (`id_kriteria`) REFERENCES `kriteria` (`id_kriteria`);
 
 --
 -- Constraints for table `pilihan_kriteria`

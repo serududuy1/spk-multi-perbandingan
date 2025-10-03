@@ -1,16 +1,19 @@
-	
-	</div><!-- #main -->
-	
-	<footer id="footer">
-		<div class="container">
-			<p>Dibuat oleh <a href="https://github.com/zunan-umby" target="_blank">Zunan Arif R.</a></p>
-		</div>
+	</div>
+
+	<footer class="footer">
+	    <!-- <div class="container"> -->
+	    <p>Dibuat oleh <a href="https://github.com/zunan-umby" target="_blank">serududuy</a></p>
+	    <!-- </div> -->
 	</footer>
 
-	</div><!-- #page -->
-</body>
-</html>
-<?php
+	<!-- </div>#page -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+	    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+	</script>
+	</body>
+
+	</html>
+	<?php
 if(isset($pdo)) {
 	// Tutup Koneksi
 	$pdo = null;

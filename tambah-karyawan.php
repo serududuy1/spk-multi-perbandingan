@@ -14,35 +14,35 @@ if(isset($_POST['submit'])):
 	
 	// Validasi
 	if(!$no_kalung) {
-		$errors[] = 'Nomor kambing tidak boleh kosong';
+		$errors[] = 'Nomor karyawan tidak boleh kosong';
 	}	
 	
 	
 	// Jika lolos validasi lakukan hal di bawah ini
 	if(empty($errors)):
 		
-		$handle = $pdo->prepare('INSERT INTO kambing (no_kalung, ciri_khas, tanggal_input) VALUES (:no_kalung, :ciri_khas, :tanggal_input)');
+		$handle = $pdo->prepare('INSERT INTO karyawan (no_kalung, ciri_khas, tanggal_input) VALUES (:no_kalung, :ciri_khas, :tanggal_input)');
 		$handle->execute( array(
 			'no_kalung' => $no_kalung,
 			'ciri_khas' => $ciri_khas,
 			'tanggal_input' => date('Y-m-d')
 		) );
-		$sukses = "Kambing no. <strong>{$no_kalung}</strong> berhasil dimasukkan.";
-		$id_kambing = $pdo->lastInsertId();
+		$sukses = "karyawan no. <strong>{$no_kalung}</strong> berhasil dimasukkan.";
+		$id_karyawan = $pdo->lastInsertId();
 		
 		// Jika ada kriteria yang diinputkan:
 		if(!empty($kriteria)):
 			foreach($kriteria as $id_kriteria => $nilai):
-				$handle = $pdo->prepare('INSERT INTO nilai_kambing (id_kambing, id_kriteria, nilai) VALUES (:id_kambing, :id_kriteria, :nilai)');
+				$handle = $pdo->prepare('INSERT INTO nilai_karyawan (id_karyawan, id_kriteria, nilai) VALUES (:id_karyawan, :id_kriteria, :nilai)');
 				$handle->execute( array(
-					'id_kambing' => $id_kambing,
+					'id_karyawan' => $id_karyawan,
 					'id_kriteria' => $id_kriteria,
 					'nilai' =>$nilai
 				) );
 			endforeach;
 		endif;
 		
-		redirect_to('list-kambing.php?status=sukses-baru');		
+		redirect_to('list-karyawan.php?status=sukses-baru');		
 		
 	endif;
 
@@ -50,17 +50,17 @@ endif;
 ?>
 
 <?php
-$judul_page = 'Tambah Kambing';
+$judul_page = 'Tambah karyawan';
 require_once('template-parts/header.php');
 ?>
 
 	<div class="main-content-row">
 	<div class="container clearfix">
 	
-		<?php include_once('template-parts/sidebar-kambing.php'); ?>
+		<?php include_once('template-parts/sidebar-karyawan.php'); ?>
 	
 		<div class="main-content the-content">
-			<h1>Tambah Kambing</h1>
+			<h1>Tambah karyawan</h1>
 			
 			<?php if(!empty($errors)): ?>
 			
@@ -76,7 +76,7 @@ require_once('template-parts/header.php');
 			<?php endif; ?>			
 			
 			
-				<form action="tambah-kambing.php" method="post">
+				<form action="tambah-karyawan.php" method="post">
 					<div class="field-wrap clearfix">					
 						<label>Nomor Kalung <span class="red">*</span></label>
 						<input type="text" name="no_kalung" value="<?php echo $no_kalung; ?>">
@@ -133,7 +133,7 @@ require_once('template-parts/header.php');
 					?>
 					
 					<div class="field-wrap clearfix">
-						<button type="submit" name="submit" value="submit" class="button">Tambah Kambing</button>
+						<button type="submit" name="submit" value="submit" class="button">Tambah karyawan</button>
 					</div>
 				</form>
 					

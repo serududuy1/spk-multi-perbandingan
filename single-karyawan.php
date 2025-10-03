@@ -4,13 +4,13 @@
 $ada_error = false;
 $result = '';
 
-$id_kambing = (isset($_GET['id'])) ? trim($_GET['id']) : '';
+$id_karyawan = (isset($_GET['id'])) ? trim($_GET['id']) : '';
 
-if(!$id_kambing) {
+if(!$id_karyawan) {
 	$ada_error = 'Maaf, data tidak dapat diproses.';
 } else {
-	$query = $pdo->prepare('SELECT * FROM kambing WHERE id_kambing = :id_kambing');
-	$query->execute(array('id_kambing' => $id_kambing));
+	$query = $pdo->prepare('SELECT * FROM karyawan WHERE id_karyawan = :id_karyawan');
+	$query->execute(array('id_karyawan' => $id_karyawan));
 	$result = $query->fetch();
 	
 	if(empty($result)) {
@@ -20,14 +20,14 @@ if(!$id_kambing) {
 ?>
 
 <?php
-$judul_page = 'Detail Kambing';
+$judul_page = 'Detail karyawan';
 require_once('template-parts/header.php');
 ?>
 
 	<div class="main-content-row">
 	<div class="container clearfix">
 	
-		<?php include_once('template-parts/sidebar-kambing.php'); ?>
+		<?php include_once('template-parts/sidebar-karyawan.php'); ?>
 	
 		<div class="main-content the-content">
 			<h1><?php echo $judul_page; ?></h1>
@@ -51,11 +51,11 @@ require_once('template-parts/header.php');
 				?></p>
 				
 				<?php
-				$query2 = $pdo->prepare('SELECT nilai_kambing.nilai AS nilai, kriteria.nama AS nama FROM kriteria 
-				LEFT JOIN nilai_kambing ON nilai_kambing.id_kriteria = kriteria.id_kriteria 
-				AND nilai_kambing.id_kambing = :id_kambing ORDER BY kriteria.urutan_order ASC');
+				$query2 = $pdo->prepare('SELECT nilai_karyawan.nilai AS nilai, kriteria.nama AS nama FROM kriteria 
+				LEFT JOIN nilai_karyawan ON nilai_karyawan.id_kriteria = kriteria.id_kriteria 
+				AND nilai_karyawan.id_karyawan = :id_karyawan ORDER BY kriteria.urutan_order ASC');
 				$query2->execute(array(
-					'id_kambing' => $id_kambing
+					'id_karyawan' => $id_karyawan
 				));
 				$query2->setFetchMode(PDO::FETCH_ASSOC);
 				$kriterias = $query2->fetchAll();
@@ -82,7 +82,7 @@ require_once('template-parts/header.php');
 				endif;
 				?>
 
-				<p><a href="edit-kambing.php?id=<?php echo $id_kambing; ?>" class="button"><span class="fa fa-pencil"></span> Edit</a> &nbsp; <a href="hapus-kambing.php?id=<?php echo $id_kambing; ?>" class="button button-red yaqin-hapus"><span class="fa fa-times"></span> Hapus</a></p>
+				<p><a href="edit-karyawan.php?id=<?php echo $id_karyawan; ?>" class="button"><span class="fa fa-pencil"></span> Edit</a> &nbsp; <a href="hapus-karyawan.php?id=<?php echo $id_karyawan; ?>" class="button button-red yaqin-hapus"><span class="fa fa-times"></span> Hapus</a></p>
 			
 			<?php endif; ?>			
 			

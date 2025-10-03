@@ -17,7 +17,7 @@ if(!$id_kriteria) {
 	if(empty($result)) {
 		$ada_error = 'Maaf, data tidak dapat diproses.';
 	} else {
-		$handle = $pdo->prepare('DELETE FROM nilai_kambing WHERE id_kriteria = :id_kriteria');				
+		$handle = $pdo->prepare('DELETE FROM nilai_karyawan WHERE id_kriteria = :id_kriteria');				
 		$handle->execute(array(
 			'id_kriteria' => $result['id_kriteria']
 		));

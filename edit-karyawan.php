@@ -8,20 +8,20 @@ $sukses = false;
 $ada_error = false;
 $result = '';
 
-$id_kambing = (isset($_GET['id'])) ? trim($_GET['id']) : '';
+$id_karyawan = (isset($_GET['id'])) ? trim($_GET['id']) : '';
 
-if(!$id_kambing) {
+if(!$id_karyawan) {
 	$ada_error = 'Maaf, data tidak dapat diproses.';
 } else {
-	$query = $pdo->prepare('SELECT * FROM kambing WHERE id_kambing = :id_kambing');
-	$query->execute(array('id_kambing' => $id_kambing));
+	$query = $pdo->prepare('SELECT * FROM karyawan WHERE id_karyawan = :id_karyawan');
+	$query->execute(array('id_karyawan' => $id_karyawan));
 	$result = $query->fetch();
 	
 	if(empty($result)) {
 		$ada_error = 'Maaf, data tidak dapat diproses.';
 	}
 
-	$id_kambing = (isset($result['id_kambing'])) ? trim($result['id_kambing']) : '';
+	$id_karyawan = (isset($result['id_karyawan'])) ? trim($result['id_karyawan']) : '';
 	$no_kalung = (isset($result['no_kalung'])) ? trim($result['no_kalung']) : '';
 	$ciri_khas = (isset($result['ciri_khas'])) ? trim($result['ciri_khas']) : '';
 	$tanggal_input = (isset($result['tanggal_input'])) ? trim($result['tanggal_input']) : '';
@@ -34,13 +34,13 @@ if(isset($_POST['submit'])):
 	$tanggal_input = (isset($_POST['tanggal_input'])) ? trim($_POST['tanggal_input']) : '';
 	$kriteria = (isset($_POST['kriteria'])) ? $_POST['kriteria'] : array();
 	
-	// Validasi ID Kambing
-	if(!$id_kambing) {
-		$errors[] = 'ID Kambing tidak ada';
+	// Validasi ID karyawan
+	if(!$id_karyawan) {
+		$errors[] = 'ID karyawan tidak ada';
 	}
 	// Validasi
 	if(!$no_kalung) {
-		$errors[] = 'Nomor kambing tidak boleh kosong';
+		$errors[] = 'Nomor karyawan tidak boleh kosong';
 	}
 	if(!$tanggal_input) {
 		$errors[] = 'Tanggal input tidak boleh kosong';
@@ -49,30 +49,30 @@ if(isset($_POST['submit'])):
 	// Jika lolos validasi lakukan hal di bawah ini
 	if(empty($errors)):
 		
-		$prepare_query = 'UPDATE kambing SET no_kalung = :no_kalung, ciri_khas = :ciri_khas, tanggal_input = :tanggal_input WHERE id_kambing = :id_kambing';
+		$prepare_query = 'UPDATE karyawan SET no_kalung = :no_kalung, ciri_khas = :ciri_khas, tanggal_input = :tanggal_input WHERE id_karyawan = :id_karyawan';
 		$data = array(
 			'no_kalung' => $no_kalung,
 			'ciri_khas' => $ciri_khas,
 			'tanggal_input' => $tanggal_input,
-			'id_kambing' => $id_kambing,
+			'id_karyawan' => $id_karyawan,
 		);		
 		$handle = $pdo->prepare($prepare_query);		
 		$sukses = $handle->execute($data);
 		
 		if(!empty($kriteria)):
 			foreach($kriteria as $id_kriteria => $nilai):
-				$handle = $pdo->prepare('INSERT INTO nilai_kambing (id_kambing, id_kriteria, nilai) 
-				VALUES (:id_kambing, :id_kriteria, :nilai)
+				$handle = $pdo->prepare('INSERT INTO nilai_karyawan (id_karyawan, id_kriteria, nilai) 
+				VALUES (:id_karyawan, :id_kriteria, :nilai)
 				ON DUPLICATE KEY UPDATE nilai = :nilai');
 				$handle->execute( array(
-					'id_kambing' => $id_kambing,
+					'id_karyawan' => $id_karyawan,
 					'id_kriteria' => $id_kriteria,
 					'nilai' =>$nilai
 				) );
 			endforeach;
 		endif;
 		
-		redirect_to('list-kambing.php?status=sukses-edit');
+		redirect_to('list-karyawan.php?status=sukses-edit');
 	
 	endif;
 
@@ -80,17 +80,17 @@ endif;
 ?>
 
 <?php
-$judul_page = 'Edit Kambing';
+$judul_page = 'Edit karyawan';
 require_once('template-parts/header.php');
 ?>
 
 	<div class="main-content-row">
 	<div class="container clearfix">
 	
-		<?php include_once('template-parts/sidebar-kambing.php'); ?>
+		<?php include_once('template-parts/sidebar-karyawan.php'); ?>
 	
 		<div class="main-content the-content">
-			<h1>Edit Kambing</h1>
+			<h1>Edit karyawan</h1>
 			
 			<?php if(!empty($errors)): ?>
 			
@@ -117,7 +117,7 @@ require_once('template-parts/header.php');
 			
 			<?php else: ?>				
 				
-				<form action="edit-kambing.php?id=<?php echo $id_kambing; ?>" method="post">
+				<form action="edit-karyawan.php?id=<?php echo $id_karyawan; ?>" method="post">
 					<div class="field-wrap clearfix">					
 						<label>Nomor Kalung <span class="red">*</span></label>
 						<input type="text" name="no_kalung" value="<?php echo $no_kalung; ?>">
@@ -133,13 +133,13 @@ require_once('template-parts/header.php');
 					
 					<h3>Nilai Kriteria</h3>
 					<?php
-					$query2 = $pdo->prepare('SELECT nilai_kambing.nilai AS nilai, kriteria.nama AS nama, kriteria.id_kriteria AS id_kriteria, kriteria.ada_pilihan AS jenis_nilai 
-					FROM kriteria LEFT JOIN nilai_kambing 
-					ON nilai_kambing.id_kriteria = kriteria.id_kriteria 
-					AND nilai_kambing.id_kambing = :id_kambing 
+					$query2 = $pdo->prepare('SELECT nilai_karyawan.nilai AS nilai, kriteria.nama AS nama, kriteria.id_kriteria AS id_kriteria, kriteria.ada_pilihan AS jenis_nilai 
+					FROM kriteria LEFT JOIN nilai_karyawan 
+					ON nilai_karyawan.id_kriteria = kriteria.id_kriteria 
+					AND nilai_karyawan.id_karyawan = :id_karyawan 
 					ORDER BY kriteria.urutan_order ASC');
 					$query2->execute(array(
-						'id_kambing' => $id_kambing
+						'id_karyawan' => $id_karyawan
 					));
 					$query2->setFetchMode(PDO::FETCH_ASSOC);
 					
@@ -179,7 +179,7 @@ require_once('template-parts/header.php');
 					?>
 					
 					<div class="field-wrap clearfix">
-						<button type="submit" name="submit" value="submit" class="button">Simpan Kambing</button>
+						<button type="submit" name="submit" value="submit" class="button">Simpan karyawan</button>
 					</div>
 				</form>
 				
