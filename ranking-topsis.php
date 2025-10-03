@@ -186,31 +186,31 @@ endforeach;
 ?>
 
 <div class="main-content-row">
-<div class="container clearfix">	
+    <div class="container clearfix">
 
-	<div class="main-content main-content-full the-content">
-		
-		<h1><?php echo $judul_page; ?></h1>
-		
-		<!-- STEP 1. Matriks Keputusan(X) ==================== -->		
-		<h3>Step 1: Matriks Keputusan (X)</h3>
-		<table class="pure-table pure-table-striped">
-			<thead>
-				<tr class="super-top">
-					<th rowspan="2" class="super-top-left">No. karyawan</th>
-					<th colspan="<?php echo count($kriterias); ?>">Kriteria</th>
-				</tr>
-				<tr>
-					<?php foreach($kriterias as $kriteria ): ?>
-						<th><?php echo $kriteria['nama']; ?></th>
-					<?php endforeach; ?>
-				</tr>
-			</thead>
-			<tbody>
-				<?php foreach($karyawans as $karyawan): ?>
-					<tr>
-						<td><?php echo $karyawan['no_kalung']; ?></td>
-						<?php						
+        <div class="main-content main-content-full the-content">
+
+            <h1><?php echo $judul_page; ?></h1>
+
+            <!-- STEP 1. Matriks Keputusan(X) ==================== -->
+            <h3>Step 1: Matriks Keputusan (X)</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr class="super-top">
+                        <th rowspan="2" class="super-top-left">No. karyawan</th>
+                        <th colspan="<?php echo count($kriterias); ?>">Kriteria</th>
+                    </tr>
+                    <tr>
+                        <?php foreach($kriterias as $kriteria ): ?>
+                        <th><?php echo $kriteria['nama']; ?></th>
+                        <?php endforeach; ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($karyawans as $karyawan): ?>
+                    <tr>
+                        <td><?php echo $karyawan['no_kalung']; ?></td>
+                        <?php						
 						foreach($kriterias as $kriteria):
 							$id_karyawan = $karyawan['id_karyawan'];
 							$id_kriteria = $kriteria['id_kriteria'];
@@ -219,59 +219,59 @@ endforeach;
 							echo '</td>';
 						endforeach;
 						?>
-					</tr>
-				<?php endforeach; ?>
-			</tbody>
-		</table>
-		
-		<!-- STEP 2. Bobot Preferensi (W) ==================== -->
-		<h3>Step 2: Bobot Preferensi (W)</h3>			
-		<table class="pure-table pure-table-striped">
-			<thead>
-				<tr>
-					<th>Nama Kriteria</th>
-					<th>Type</th>
-					<th>Bobot (W)</th>						
-				</tr>
-			</thead>
-			<tbody>
-				<?php foreach($kriterias as $hasil): ?>
-					<tr>
-						<td><?php echo $hasil['nama']; ?></td>
-						<td>
-						<?php
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+
+            <!-- STEP 2. Bobot Preferensi (W) ==================== -->
+            <h3>Step 2: Bobot Preferensi (W)</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nama Kriteria</th>
+                        <th>Type</th>
+                        <th>Bobot (W)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($kriterias as $hasil): ?>
+                    <tr>
+                        <td><?php echo $hasil['nama']; ?></td>
+                        <td>
+                            <?php
 						if($hasil['type'] == 'benefit') {
 							echo 'Benefit';
 						} elseif($hasil['type'] == 'cost') {
 							echo 'Cost';
 						}							
 						?>
-						</td>
-						<td><?php echo $hasil['bobot']; ?></td>							
-					</tr>
-				<?php endforeach; ?>
-			</tbody>
-		</table>
-		
-		<!-- Step 3: Matriks Ternormalisasi (R) ==================== -->
-		<h3>Step 3: Matriks Ternormalisasi (R)</h3>			
-		<table class="pure-table pure-table-striped">
-			<thead>
-				<tr class="super-top">
-					<th rowspan="2" class="super-top-left">No. karyawan</th>
-					<th colspan="<?php echo count($kriterias); ?>">Kriteria</th>
-				</tr>
-				<tr>
-					<?php foreach($kriterias as $kriteria ): ?>
-						<th><?php echo $kriteria['nama']; ?></th>
-					<?php endforeach; ?>
-				</tr>
-			</thead>
-			<tbody>
-				<?php foreach($karyawans as $karyawan): ?>
-					<tr>
-						<td><?php echo $karyawan['no_kalung']; ?></td>
-						<?php						
+                        </td>
+                        <td><?php echo $hasil['bobot']; ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+
+            <!-- Step 3: Matriks Ternormalisasi (R) ==================== -->
+            <h3>Step 3: Matriks Ternormalisasi (R)</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr class="super-top">
+                        <th rowspan="2" class="super-top-left">No. karyawan</th>
+                        <th colspan="<?php echo count($kriterias); ?>">Kriteria</th>
+                    </tr>
+                    <tr>
+                        <?php foreach($kriterias as $kriteria ): ?>
+                        <th><?php echo $kriteria['nama']; ?></th>
+                        <?php endforeach; ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($karyawans as $karyawan): ?>
+                    <tr>
+                        <td><?php echo $karyawan['no_kalung']; ?></td>
+                        <?php						
 						foreach($kriterias as $kriteria):
 							$id_karyawan = $karyawan['id_karyawan'];
 							$id_kriteria = $kriteria['id_kriteria'];
@@ -280,31 +280,31 @@ endforeach;
 							echo '</td>';
 						endforeach;
 						?>
-					</tr>
-				<?php endforeach; ?>				
-			</tbody>
-		</table>
-		
-		
-		<!-- Step 4: Matriks Y ==================== -->
-		<h3>Step 4: Matriks Y</h3>			
-		<table class="pure-table pure-table-striped">
-			<thead>
-				<tr class="super-top">
-					<th rowspan="2" class="super-top-left">No. karyawan</th>
-					<th colspan="<?php echo count($kriterias); ?>">Kriteria</th>
-				</tr>
-				<tr>
-					<?php foreach($kriterias as $kriteria ): ?>
-						<th><?php echo $kriteria['nama']; ?></th>
-					<?php endforeach; ?>
-				</tr>
-			</thead>
-			<tbody>
-				<?php foreach($karyawans as $karyawan): ?>
-					<tr>
-						<td><?php echo $karyawan['no_kalung']; ?></td>
-						<?php						
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+
+
+            <!-- Step 4: Matriks Y ==================== -->
+            <h3>Step 4: Matriks Y</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr class="super-top">
+                        <th rowspan="2" class="super-top-left">No. karyawan</th>
+                        <th colspan="<?php echo count($kriterias); ?>">Kriteria</th>
+                    </tr>
+                    <tr>
+                        <?php foreach($kriterias as $kriteria ): ?>
+                        <th><?php echo $kriteria['nama']; ?></th>
+                        <?php endforeach; ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($karyawans as $karyawan): ?>
+                    <tr>
+                        <td><?php echo $karyawan['no_kalung']; ?></td>
+                        <?php						
 						foreach($kriterias as $kriteria):
 							$id_karyawan = $karyawan['id_karyawan'];
 							$id_kriteria = $kriteria['id_kriteria'];
@@ -313,111 +313,111 @@ endforeach;
 							echo '</td>';
 						endforeach;
 						?>
-					</tr>
-				<?php endforeach; ?>	
-			</tbody>
-		</table>	
-		
-		
-		<!-- Step 5.1: Solusi Ideal Positif ==================== -->
-		<h3>Step 5.1: Solusi Ideal Positif (A<sup>+</sup>)</h3>			
-		<table class="pure-table pure-table-striped">
-			<thead>					
-				<tr>
-					<?php foreach($kriterias as $kriteria ): ?>
-						<th><?php echo $kriteria['nama']; ?></th>
-					<?php endforeach; ?>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<?php foreach($kriterias as $kriteria ): ?>
-						<td>
-							<?php
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+
+
+            <!-- Step 5.1: Solusi Ideal Positif ==================== -->
+            <h3>Step 5.1: Solusi Ideal Positif (A<sup>+</sup>)</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <?php foreach($kriterias as $kriteria ): ?>
+                        <th><?php echo $kriteria['nama']; ?></th>
+                        <?php endforeach; ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <?php foreach($kriterias as $kriteria ): ?>
+                        <td>
+                            <?php
 							$id_kriteria = $kriteria['id_kriteria'];							
 							echo round($solusi_ideal_positif[$id_kriteria], $digit);
 							?>
-						</td>
-					<?php endforeach; ?>
-				</tr>					
-			</tbody>
-		</table>
-		
-		<!-- Step 5.2: Solusi Ideal negative ==================== -->
-		<h3>Step 5.2: Solusi Ideal Negatif (A<sup>-</sup>)</h3>			
-		<table class="pure-table pure-table-striped">
-			<thead>					
-				<tr>
-					<?php foreach($kriterias as $kriteria ): ?>
-						<th><?php echo $kriteria['nama']; ?></th>
-					<?php endforeach; ?>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<?php foreach($kriterias as $kriteria ): ?>
-						<td>
-							<?php
+                        </td>
+                        <?php endforeach; ?>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Step 5.2: Solusi Ideal negative ==================== -->
+            <h3>Step 5.2: Solusi Ideal Negatif (A<sup>-</sup>)</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <?php foreach($kriterias as $kriteria ): ?>
+                        <th><?php echo $kriteria['nama']; ?></th>
+                        <?php endforeach; ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <?php foreach($kriterias as $kriteria ): ?>
+                        <td>
+                            <?php
 							$id_kriteria = $kriteria['id_kriteria'];							
 							echo round($solusi_ideal_negatif[$id_kriteria], $digit);
 							?>
-						</td>
-					<?php endforeach; ?>
-				</tr>					
-			</tbody>
-		</table>		
-		
-		<!-- Step 6.1: Jarak Ideal Positif ==================== -->
-		<h3>Step 6.1: Jarak Ideal Positif (S<sub>i</sub>+)</h3>			
-		<table class="pure-table pure-table-striped">
-			<thead>					
-				<tr>
-					<th class="super-top-left">No. karyawan</th>
-					<th>Jarak Ideal Positif</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php foreach($karyawans as $karyawan ): ?>
-					<tr>
-						<td><?php echo $karyawan['no_kalung']; ?></td>
-						<td>
-							<?php								
+                        </td>
+                        <?php endforeach; ?>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Step 6.1: Jarak Ideal Positif ==================== -->
+            <h3>Step 6.1: Jarak Ideal Positif (S<sub>i</sub>+)</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="super-top-left">No. karyawan</th>
+                        <th>Jarak Ideal Positif</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($karyawans as $karyawan ): ?>
+                    <tr>
+                        <td><?php echo $karyawan['no_kalung']; ?></td>
+                        <td>
+                            <?php								
 							$id_karyawan = $karyawan['id_karyawan'];
 							echo round($jarak_ideal_positif[$id_karyawan], $digit);
 							?>
-						</td>						
-					</tr>
-				<?php endforeach; ?>
-			</tbody>
-		</table>
-		
-		<!-- Step 6.2: Jarak Ideal Negatif ==================== -->
-		<h3>Step 6.2: Jarak Ideal Negatif (S<sub>i</sub>-)</h3>			
-		<table class="pure-table pure-table-striped">
-			<thead>					
-				<tr>
-					<th class="super-top-left">No. karyawan</th>
-					<th>Jarak Ideal Negatif</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php foreach($karyawans as $karyawan ): ?>
-					<tr>
-						<td><?php echo $karyawan['no_kalung']; ?></td>
-						<td>
-							<?php								
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+
+            <!-- Step 6.2: Jarak Ideal Negatif ==================== -->
+            <h3>Step 6.2: Jarak Ideal Negatif (S<sub>i</sub>-)</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="super-top-left">No. karyawan</th>
+                        <th>Jarak Ideal Negatif</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($karyawans as $karyawan ): ?>
+                    <tr>
+                        <td><?php echo $karyawan['no_kalung']; ?></td>
+                        <td>
+                            <?php								
 							$id_karyawan = $karyawan['id_karyawan'];
 							echo round($jarak_ideal_negatif[$id_karyawan], $digit);
 							?>
-						</td>						
-					</tr>
-				<?php endforeach; ?>
-			</tbody>
-		</table>
-		
-		
-		<!-- Step 7: Perangkingan ==================== -->
-		<?php		
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+
+
+            <!-- Step 7: Perangkingan ==================== -->
+            <?php		
 		$sorted_ranks = $ranks;	
 		
 		// Sorting
@@ -428,28 +428,28 @@ endforeach;
 			}
 			array_multisort($nilai, SORT_DESC, $no_kalung, SORT_ASC, $sorted_ranks);
 		endif;
-		?>		
-		<h3>Step 7: Perangkingan (V)</h3>			
-		<table class="pure-table pure-table-striped">
-			<thead>					
-				<tr>
-					<th class="super-top-left">No. karyawan</th>
-					<th>Ranking</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php foreach($sorted_ranks as $karyawan ): ?>
-					<tr>
-						<td><?php echo $karyawan['no_kalung']; ?></td>
-						<td><?php echo round($karyawan['nilai'], $digit); ?></td>											
-					</tr>
-				<?php endforeach; ?>
-			</tbody>
-		</table>			
-		
-	</div>
+		?>
+            <h3>Step 7: Perangkingan (V)</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="super-top-left">No. karyawan</th>
+                        <th>Ranking</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($sorted_ranks as $karyawan ): ?>
+                    <tr>
+                        <td><?php echo $karyawan['no_kalung']; ?></td>
+                        <td><?php echo round($karyawan['nilai'], $digit); ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
 
-</div><!-- .container -->
+        </div>
+
+    </div><!-- .container -->
 </div><!-- .main-content-row -->
 
 <?php

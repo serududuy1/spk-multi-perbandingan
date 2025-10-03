@@ -1,9 +1,9 @@
 	</div>
 
-	<footer class="footer">
-	    <!-- <div class="container"> -->
-	    <p>Dibuat oleh <a href="https://github.com/zunan-umby" target="_blank">serududuy</a></p>
-	    <!-- </div> -->
+	<footer class="fixed-bottom bg-light ">
+	    <div class="container py-3 text-center">
+	        <p>&copy; 2025 SPK TOPSIS & SAW</p>
+	    </div>
 	</footer>
 
 	<!-- </div>#page -->
